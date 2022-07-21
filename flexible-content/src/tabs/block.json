@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "edgepress/tabs",
+	"version": "0.1.0",
+	"title": "Tabs",
+	"category": "text",
+	"icon": "flag",
+	"description": "A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.",
+	"attributes": {
+		"message": {
+			"type": "string",
+			"source": "text",
+			"selector": "div"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "edgepress",
+	"editorScript": "file:./index.js"
+}

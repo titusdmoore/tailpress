@@ -44,6 +44,10 @@
   }
 }
 
+.static {
+  position: static
+}
+
 .m-8 {
   margin: 2rem
 }
@@ -147,6 +151,10 @@
 
 .flex-grow {
   flex-grow: 1
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
 .cursor-pointer {
@@ -385,6 +393,11 @@
   color: rgb(59 130 246 / var(--tw-text-opacity))
 }
 
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale
@@ -427,34 +440,22 @@
 
 @media (min-width: 600px) {
   .alignleft:not(.wp-block-button) {
-    margin-right: 0.5rem
-  }
-
-  .alignleft:not(.wp-block-button) {
+    margin-right: 0.5rem;
     float: left
   }
 
   .alignright:not(.wp-block-button) {
-    margin-left: 0.5rem
-  }
-
-  .alignright:not(.wp-block-button) {
+    margin-left: 0.5rem;
     float: right
   }
 
   .wp-block-button.alignleft a {
-    float: left
-  }
-
-  .wp-block-button.alignleft a {
+    float: left;
     margin-right: 1rem
   }
 
   .wp-block-button.alignright a {
-    float: right
-  }
-
-  .wp-block-button.alignright a {
+    float: right;
     margin-left: 1rem
   }
 }
