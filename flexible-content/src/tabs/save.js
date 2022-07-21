@@ -19,6 +19,6 @@
   */
  export default function save( { attributes } ) {
    const blockProps = useBlockProps.save();
-   return <div { ...blockProps }>{ attributes.message }</div>;
+   return <div { ...blockProps } className="text-9xl">{ attributes.message }</div>;
  }
  
