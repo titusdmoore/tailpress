@@ -8,6 +8,8 @@ module.exports = {
         './**/*.php',
         './resources/css/*.css',
         './resources/js/*.js',
+        './flexible-content/*.php',
+        './flexible-content/build/**/*.js',
         './safelist.txt'
     ],
     theme: {
