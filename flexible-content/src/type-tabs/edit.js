@@ -4,15 +4,23 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-components/
  */
 import { TextControl } from '@wordpress/components';
+// import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
+ * It provides all the necessary props like the className name.
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps } from '@wordpress/block-editor';
+
+/**
+ * Import hooks from element
+ * 
+ */
+import { useState } from '@wordpress/element';
+
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -28,17 +36,71 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
-    className: 'text-9xl ml-4'
+    className: 'border border-sky-500'
   });
+
+  const handleNewTabAdd = (newTab) => {
+    setAttributes({
+      tabs: [...tabs, newTab]
+    })
+  }
+
+  const renderNewBlockView = () => {
+    const [ newTab, setNewTab ] = useState({
+      title: '',
+      content: {}
+    });
+
+    return (
+      <div className="w-full tab-block">
+        <ul className="p-0 flex flex-row">
+          <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab">
+            <TextControl
+              value={newTab.value}
+              onChange={(value) => {
+                console.log(newTab)
+                setNewTab({
+                  title: value,
+                  content: newTab.content
+                })
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && newTab.title !== '') {
+                  handleNewTabAdd(newTab);
+                }
+              }}
+              placeholder="New Tab"
+              className="[&>input]:border-none [&>input]:bg-transparent"
+            />
+          </li>
+          <li className="list-none rounded-t-md bg-slate-200 w-fit ml-1">
+            <button
+              onClick={() => {
+                console.log("This is clicked")
+              }}
+              className="w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
+            >
+              +
+            </button>
+          </li>
+        </ul>
+        <InnerBlocks className="w-full content" />
+      </div>
+    );
+  }
+
   return (
     <div {...blockProps}>
-      <TextControl
-        value={attributes.message}
-        placeholder="Type your message here..."
-        label="Message"
-        onChange={(val) => setAttributes({ message: val })}
-        className="text-2xl ml-4"
-      />
+      {attributes.tabs ?
+        attributes.tabs.map((tab) => {
+          return (
+            <div>This is a tab</div>
+          );
+        })
+        :
+        renderNewBlockView()
+      }
     </div>
+
   );
 }

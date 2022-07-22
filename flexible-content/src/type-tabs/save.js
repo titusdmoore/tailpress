@@ -4,21 +4,39 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
- import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 
- /**
-  * The save function defines the way in which the different attributes should
-  * be combined into the final markup, which is then serialized by the block
-  * editor into `post_content`.
-  *
-  * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
-  *
-  * @param {Object} props            Properties passed to the function.
-  * @param {Object} props.attributes Available block attributes.
-  * @return {WPElement} Element to render.
-  */
- export default function save( { attributes } ) {
-   const blockProps = useBlockProps.save();
-   return <div { ...blockProps } className="text-9xl">{ attributes.message }</div>;
- }
- 
+/**
+ * The save function defines the way in which the different attributes should
+ * be combined into the final markup, which is then serialized by the block
+ * editor into `post_content`.
+ *
+ * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
+ *
+ * @param {Object} props            Properties passed to the function.
+ * @param {Object} props.attributes Available block attributes.
+ * @return {WPElement} Element to render.
+ */
+export default function save({ attributes }) {
+  const blockProps = useBlockProps.save();
+  return (
+    <div {...blockProps}>
+      <div className="w-full tab-block">
+        <ul className="p-0 flex flex-row">
+          {attributes.tabs
+            ?
+            attributes.tabs.map((tab) => {
+              return (
+                <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab">
+
+                </li>
+              )
+            })
+            : (
+              <p>No Tabs</p>
+            )}
+        </ul>
+      </div>
+    </div>
+  );
+}

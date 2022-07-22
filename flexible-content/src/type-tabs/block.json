@@ -5,17 +5,18 @@
 	"version": "0.1.0",
 	"title": "Tabs",
 	"category": "text",
-	"icon": "flag",
+	"icon": "category",
 	"description": "A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.",
 	"attributes": {
-		"message": {
-			"type": "string",
+		"tabs": {
+			"type": "array",
 			"source": "text",
-			"selector": "div"
+			"selector": ".tab",
+			"default": []
 		}
 	},
 	"supports": {
-		"html": false
+		"html": true
 	},
 	"textdomain": "edgepress",
 	"editorScript": "file:./index.js"
