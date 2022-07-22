@@ -40,13 +40,24 @@ export default function Edit({ attributes, setAttributes }) {
     className: 'border border-sky-500'
   });
 
-  const [ localTabs, setLocalTabs ] = useState(attributes.tabs);
+  const [localTabs, setLocalTabs] = useState(attributes.tabs);
 
   const updateTab = (updatedTab, position) => {
     let updatedStateTabs = localTabs;
     updatedStateTabs[position] = updatedTab;
 
     setLocalTabs(updatedStateTabs);
+  }
+
+  const addTab = () => {
+    let newTab = {
+      title: "New Tab",
+      content: null
+    }
+
+    console.log([...localTabs, newTab])
+
+    setLocalTabs([...localTabs, newTab]);
   }
 
   useEffect(() => {
@@ -60,7 +71,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div className="w-full tab-block border-2 border-sky-500">
         <ul className="p-0 flex flex-row tabs">
           {localTabs.map((tab, position) => {
-            let [ localTab, setLocalTab ] = useState(tab);
+            let [localTab, setLocalTab] = useState(tab);
 
             return (
               <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab" key={"unique-key"}>
@@ -87,7 +98,7 @@ export default function Edit({ attributes, setAttributes }) {
           <li className="list-none rounded-t-md bg-slate-200 w-fit ml-1" key={"key-2"}>
             <button
               onClick={() => {
-                console.log("This is clicked")
+                addTab()
               }}
               className="w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
             >

@@ -74,6 +74,15 @@ function Edit(_ref) {
     setLocalTabs(updatedStateTabs);
   };
 
+  const addTab = () => {
+    let newTab = {
+      title: "New Tab",
+      content: null
+    };
+    console.log([...localTabs, newTab]);
+    setLocalTabs([...localTabs, newTab]);
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
     setAttributes({
       tabs: localTabs
@@ -109,7 +118,7 @@ function Edit(_ref) {
     key: "key-2"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     onClick: () => {
-      console.log("This is clicked");
+      addTab();
     },
     className: "w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
   }, "+"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
