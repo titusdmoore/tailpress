@@ -50,7 +50,6 @@ export default function Edit({ attributes, setAttributes }) {
   }
 
   useEffect(() => {
-    console.log(localTabs)
     setAttributes({
       tabs: localTabs
     })

@@ -11,6 +11,7 @@
     "tabs": {
       "type": "array",
       "source": "query",
+      "selector": ".tab-block",
       "query": {
         "title": {
           "type": "string",

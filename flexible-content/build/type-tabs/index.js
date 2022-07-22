@@ -75,7 +75,6 @@ function Edit(_ref) {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
-    console.log(localTabs);
     setAttributes({
       tabs: localTabs
     });
@@ -160,7 +159,6 @@ function save(_ref) {
     attributes
   } = _ref;
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save();
-  console.log(attributes);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full tab-block"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
@@ -231,7 +229,7 @@ module.exports = window["wp"]["element"];
   \***************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/tabs","version":"0.1.0","title":"Tabs","category":"text","icon":"category","description":"A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.","attributes":{"tabs":{"type":"array","source":"query","query":{"title":{"type":"string","source":"text","selector":".tab"},"content":{"type":"null"}},"default":[{"title":"New Tab","content":null}]}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/tabs","version":"0.1.0","title":"Tabs","category":"text","icon":"category","description":"A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.","attributes":{"tabs":{"type":"array","source":"query","selector":".tab-block","query":{"title":{"type":"string","source":"text","selector":".tab"},"content":{"type":"null"}},"default":[{"title":"New Tab","content":null}]}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js"}');
 
 /***/ })
 
