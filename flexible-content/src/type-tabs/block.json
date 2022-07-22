@@ -10,9 +10,20 @@
 	"attributes": {
 		"tabs": {
 			"type": "array",
-			"source": "text",
-			"selector": ".tab",
-			"default": []
+      "source": "query",
+      "query": {
+        "title": {
+          "type": "string",
+          "source": "text",
+          "selector": ".tab"
+        },
+        "content": {
+          "type": "null"
+        }
+      },
+      "default": [
+        {"title": "New Tab", "content": null}
+      ]
 		}
 	},
 	"supports": {

@@ -20,6 +20,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * 
  */
 import { useState } from '@wordpress/element';
+import { useEffect } from 'react';
 
 
 /**
@@ -39,41 +40,52 @@ export default function Edit({ attributes, setAttributes }) {
     className: 'border border-sky-500'
   });
 
-  const handleNewTabAdd = (newTab) => {
-    setAttributes({
-      tabs: [...tabs, newTab]
-    })
+  const [ localTabs, setLocalTabs ] = useState(attributes.tabs);
+
+  const updateTab = (updatedTab, position) => {
+    let updatedStateTabs = localTabs;
+    updatedStateTabs[position] = updatedTab;
+
+    setLocalTabs(updatedStateTabs);
   }
 
-  const renderNewBlockView = () => {
-    const [ newTab, setNewTab ] = useState({
-      title: '',
-      content: {}
-    });
+  useEffect(() => {
+    console.log(localTabs)
+    setAttributes({
+      tabs: localTabs
+    })
+  }, [localTabs])
 
-    return (
-      <div className="w-full tab-block">
-        <ul className="p-0 flex flex-row">
-          <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab">
-            <TextControl
-              value={newTab.value}
-              onChange={(value) => {
-                console.log(newTab)
-                setNewTab({
-                  title: value,
-                  content: newTab.content
-                })
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && newTab.title !== '') {
-                  handleNewTabAdd(newTab);
-                }
-              }}
-              placeholder="New Tab"
-              className="[&>input]:border-none [&>input]:bg-transparent"
-            />
-          </li>
-          <li className="list-none rounded-t-md bg-slate-200 w-fit ml-1">
+  return (
+    <div {...blockProps}>
+      <div className="w-full tab-block border-2 border-sky-500">
+        <ul className="p-0 flex flex-row tabs">
+          {localTabs.map((tab, position) => {
+            let [ localTab, setLocalTab ] = useState(tab);
+
+            return (
+              <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab" key={"unique-key"}>
+                <TextControl
+                  value={localTab.title}
+                  onChange={(value) => {
+                    setLocalTab({
+                      title: value,
+                      content: localTab.content
+                    })
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && localTab.title !== '') {
+                      updateTab(localTab, position);
+                    }
+                  }}
+                  placeholder="New Tab"
+                  className="[&>input]:border-none [&>input]:bg-transparent"
+                />
+              </li>
+            );
+          })}
+
+          <li className="list-none rounded-t-md bg-slate-200 w-fit ml-1" key={"key-2"}>
             <button
               onClick={() => {
                 console.log("This is clicked")
@@ -86,20 +98,6 @@ export default function Edit({ attributes, setAttributes }) {
         </ul>
         <InnerBlocks className="w-full content" />
       </div>
-    );
-  }
-
-  return (
-    <div {...blockProps}>
-      {attributes.tabs ?
-        attributes.tabs.map((tab) => {
-          return (
-            <div>This is a tab</div>
-          );
-        })
-        :
-        renderNewBlockView()
-      }
     </div>
 
   );

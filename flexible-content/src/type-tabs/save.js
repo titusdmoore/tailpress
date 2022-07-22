@@ -19,22 +19,16 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function save({ attributes }) {
   const blockProps = useBlockProps.save();
+  console.log(attributes)
   return (
     <div {...blockProps}>
       <div className="w-full tab-block">
         <ul className="p-0 flex flex-row">
-          {attributes.tabs
-            ?
-            attributes.tabs.map((tab) => {
-              return (
-                <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab">
-
-                </li>
-              )
-            })
-            : (
-              <p>No Tabs</p>
-            )}
+          {attributes.tabs.map((tab) => {
+            return (
+              <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab" key={tab.title}>{tab.title}</li>
+            );
+          })}
         </ul>
       </div>
     </div>

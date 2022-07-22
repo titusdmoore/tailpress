@@ -18,6 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 
 
 /**
@@ -42,6 +44,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -63,55 +66,56 @@ function Edit(_ref) {
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
     className: 'border border-sky-500'
   });
+  const [localTabs, setLocalTabs] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(attributes.tabs);
 
-  const handleNewTabAdd = newTab => {
-    setAttributes({
-      tabs: [...tabs, newTab]
-    });
+  const updateTab = (updatedTab, position) => {
+    let updatedStateTabs = localTabs;
+    updatedStateTabs[position] = updatedTab;
+    setLocalTabs(updatedStateTabs);
   };
 
-  const renderNewBlockView = () => {
-    const [newTab, setNewTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      title: '',
-      content: {}
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    console.log(localTabs);
+    setAttributes({
+      tabs: localTabs
     });
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "w-full tab-block"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
-      className: "p-0 flex flex-row"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      className: "list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab"
+  }, [localTabs]);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "w-full tab-block border-2 border-sky-500"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "p-0 flex flex-row tabs"
+  }, localTabs.map((tab, position) => {
+    let [localTab, setLocalTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(tab);
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      className: "list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab",
+      key: "unique-key"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-      value: newTab.value,
+      value: localTab.title,
       onChange: value => {
-        console.log(newTab);
-        setNewTab({
+        setLocalTab({
           title: value,
-          content: newTab.content
+          content: localTab.content
         });
       },
       onKeyDown: e => {
-        if (e.key === 'Enter' && newTab.title !== '') {
-          handleNewTabAdd(newTab);
+        if (e.key === 'Enter' && localTab.title !== '') {
+          updateTab(localTab, position);
         }
       },
       placeholder: "New Tab",
       className: "[&>input]:border-none [&>input]:bg-transparent"
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      className: "list-none rounded-t-md bg-slate-200 w-fit ml-1"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-      onClick: () => {
-        console.log("This is clicked");
-      },
-      className: "w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
-    }, "+"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
-      className: "w-full content"
     }));
-  };
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, attributes.tabs ? attributes.tabs.map(tab => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "This is a tab");
-  }) : renderNewBlockView());
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    className: "list-none rounded-t-md bg-slate-200 w-fit ml-1",
+    key: "key-2"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: () => {
+      console.log("This is clicked");
+    },
+    className: "w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
+  }, "+"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+    className: "w-full content"
+  })));
 }
 
 /***/ }),
@@ -156,16 +160,28 @@ function save(_ref) {
     attributes
   } = _ref;
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save();
+  console.log(attributes);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full tab-block"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "p-0 flex flex-row"
-  }, attributes.tabs ? attributes.tabs.map(tab => {
+  }, attributes.tabs.map(tab => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      className: "list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab"
-    });
-  }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No Tabs"))));
+      className: "list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab",
+      key: tab.title
+    }, tab.title);
+  }))));
 }
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
 
 /***/ }),
 
@@ -215,7 +231,7 @@ module.exports = window["wp"]["element"];
   \***************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/tabs","version":"0.1.0","title":"Tabs","category":"text","icon":"category","description":"A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.","attributes":{"tabs":{"type":"array","source":"text","selector":".tab","default":[]}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/tabs","version":"0.1.0","title":"Tabs","category":"text","icon":"category","description":"A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.","attributes":{"tabs":{"type":"array","source":"query","query":{"title":{"type":"string","source":"text","selector":".tab"},"content":{"type":"null"}},"default":[{"title":"New Tab","content":null}]}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js"}');
 
 /***/ })
 
