@@ -31,7 +31,8 @@
 		"watch-sync": "cross-env NODE_ENV=development concurrently \"npm run browser-sync\" \"npm run watch\"",
 		"env-start": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env start",
 		"env-stop": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env stop",
-    "cypress:open": "cross-env NODE_ENV=development cypress open"
+    "cypress:open": "cross-env NODE_ENV=development cypress open",
+    "cypress:headless": "cross-env NODE_ENV=development cypress run --headless"
 	},
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
