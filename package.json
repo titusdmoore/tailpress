@@ -30,7 +30,8 @@
 		"browser-sync": "cross-env NODE_ENV=development browser-sync start --proxy \"localhost:8181\" --host=\"localhost:8181\" --no-inject-changes --files=\"./\"",
 		"watch-sync": "cross-env NODE_ENV=development concurrently \"npm run browser-sync\" \"npm run watch\"",
 		"env-start": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env start",
-		"env-stop": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env stop"
+		"env-stop": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env stop",
+    "cypress:open": "cross-env NODE_ENV=development cypress open"
 	},
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
@@ -40,6 +41,7 @@
 		"browser-sync": "^2.26.14",
 		"concurrently": "^6.2.1",
 		"cross-env": "^6.0.3",
+		"cypress": "^10.3.1",
 		"esbuild": "^0.12.24",
 		"postcss": "^8.4.4",
 		"postcss-import": "^14.0.0",

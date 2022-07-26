@@ -29,4 +29,4 @@ The purpose of this file is to describe how to setup the development enviorment 
 	- Refer to the [docs](https://tailwindcss.com/docs/configuration) on how to edit the `tailwind.config.json` file.
 - `theme.json`
 	- This file is required by WordPress for block themes.
-	- This file also includes some global style information needed by the theme.z
+	- This file also includes some global style information needed by the theme.
