@@ -27,11 +27,12 @@
 		"production": "cross-env NODE_ENV=production concurrently \"npm run production:css-app\" \"npm run production:css-editor\" \"npm run production:js\" \"npm run production:blocks\"",
 		"dev": "cross-env NODE_ENV=development concurrently \"npm run dev:css-app\" \"npm run dev:css-editor\" \"npm run dev:js\" \"npm run dev:blocks\"",
 		"watch": "cross-env NODE_ENV=development concurrently \"npm run watch:css-app\" \"npm run watch:css-editor\" \"npm run watch:js\" \"npm run watch:blocks\"",
-		"browser-sync": "cross-env NODE_ENV=development browser-sync start --proxy \"tailpress.test\" --host=\"tailpress.test\" --no-inject-changes --files=\"./\"",
+		"browser-sync": "cross-env NODE_ENV=development browser-sync start --proxy \"localhost:8181\" --host=\"localhost:8181\" --no-inject-changes --files=\"./\"",
 		"watch-sync": "cross-env NODE_ENV=development concurrently \"npm run browser-sync\" \"npm run watch\""
 	},
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
+		"@wordpress/env": "^4.9.0",
 		"@wordpress/scripts": "^23.5.0",
 		"autoprefixer": "^10.4.0",
 		"browser-sync": "^2.26.14",

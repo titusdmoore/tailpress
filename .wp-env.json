@@ -1,0 +1,11 @@
+{
+  "core": null,
+  "port": 8181,
+  "phpVersion": "8.0",
+  "themes": ["."],
+  "env": {
+    "tests": {
+      "port": 8182
+    }
+  }
+}
