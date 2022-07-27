@@ -61,8 +61,10 @@ __webpack_require__.r(__webpack_exports__);
 function Edit(_ref) {
   let {
     attributes,
-    setAttributes
+    setAttributes,
+    clientId
   } = _ref;
+  console.log(clientId);
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
     className: 'border border-sky-500'
   });
@@ -71,6 +73,7 @@ function Edit(_ref) {
   } = attributes;
   const [newListItem, setNewListItem] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [newTabActive, setNewTabActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "flex flex-row pl-0"
   }, tabs ? tabs.map((tab, index) => {
@@ -111,7 +114,15 @@ function Edit(_ref) {
     onClick: () => {
       setNewTabActive(true);
     }
-  }, "+"))));
+  }, "+"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "content-section"
+  }, tabs ? tabs.map((tab, index) => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      key: `content-${tab.title}-index`,
+      id: `content-${tab.title}-index`,
+      className: activeTab === index ? "" : "hidden"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, null));
+  }) : null));
 }
 
 /***/ }),

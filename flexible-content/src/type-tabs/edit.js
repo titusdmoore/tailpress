@@ -35,7 +35,8 @@ import { useEffect } from 'react';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes, clientId }) {
+  console.log(clientId)
   const blockProps = useBlockProps({
     className: 'border border-sky-500'
   });
@@ -44,6 +45,7 @@ export default function Edit({ attributes, setAttributes }) {
 
   const [newListItem, setNewListItem] = useState("");
   const [newTabActive, setNewTabActive] = useState(false);
+  const [ activeTab, setActiveTab ] = useState(1);
 
   return (
     <div {...blockProps}>
@@ -77,6 +79,18 @@ export default function Edit({ attributes, setAttributes }) {
           }}>+</button>
         </li>
       </ul>
+      <div className="content-section">
+        {
+          tabs ? (tabs.map((tab, index) => {
+            return (
+              <div key={`content-${tab.title}-index`} id={`content-${tab.title}-index`} className={activeTab === index ? "" : "hidden"}>
+                <InnerBlocks />
+              </div>
+            )
+          })) : null
+        }
+        
+      </div>
     </div>
   );
 }

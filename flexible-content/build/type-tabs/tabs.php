@@ -55,23 +55,15 @@ function render_tabs($attributes)
     " id="tabs-messages-tab" data-bs-toggle="pill" data-bs-target="#tabs-messages" role="tab" aria-controls="tabs-messages" aria-selected="false">Messages</a>
       </li>
       <li class="nav-item list-none" role="presentation">
-        <a href="#tabs-contact" class="
-      nav-link
-      disabled
-      pointer-events-none
-      block
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      border-x-0 border-t-0 border-b-2 border-transparent
-      px-6
-      py-3
-      my-2
-      hover:border-transparent hover:bg-gray-100
-      focus:border-transparent
-    " id="tabs-contact-tab" data-bs-toggle="pill" data-bs-target="#tabs-contact" role="tab" aria-controls="tabs-contact" aria-selected="false">Contact</a>
+        <a href="#tabs-contact" class="nav-link disabled pointer-events-none block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" id="tabs-contact-tab" data-bs-toggle="pill" data-bs-target="#tabs-contact" role="tab" aria-controls="tabs-contact" aria-selected="false">Contact</a>
       </li>
+      <?php if ($attributes["tabs"]) : ?>
+        <?php foreach ($attributes["tabs"] as $tab) : ?>
+          <li class="nav-item list-none" role="presentation">
+            <a href="#tabs-<?= $tab["title"]; ?>" class="nav-link disabled pointer-events-none block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" id="tabs-<?= $tab->title; ?>-tab" data-bs-toggle="pill" data-bs-target="#tabs-<?= $tab["title"]; ?>" role="tab" aria-controls="tabs-<?= $tab["title"]; ?>" aria-selected="false"><?= $tab["title"]; ?></a>
+          </li>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </ul>
     <div class="tab-content" id="tabs-tabContent">
       <div class="tab-pane fade show active" id="tabs-home" role="tabpanel" aria-labelledby="tabs-home-tab">
