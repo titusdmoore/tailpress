@@ -23,7 +23,6 @@
     */
    example: {
      attributes: {
-       message: 'Edgepress Tabs',
      },
    },
    /**

@@ -9,22 +9,7 @@
 	"description": "A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.",
 	"attributes": {
 		"tabs": {
-			"type": "array",
-      "source": "query",
-      "selector": ".tab-block",
-      "query": {
-        "title": {
-          "type": "string",
-          "source": "text",
-          "selector": ".tab"
-        },
-        "content": {
-          "type": "null"
-        }
-      },
-      "default": [
-        {"title": "New Tab", "content": null}
-      ]
+			"type": "array"
 		}
 	},
 	"supports": {

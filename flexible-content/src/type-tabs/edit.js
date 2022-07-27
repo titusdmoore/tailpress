@@ -40,75 +40,30 @@ export default function Edit({ attributes, setAttributes }) {
     className: 'border border-sky-500'
   });
 
-  const [localTabs, setLocalTabs] = useState(attributes.tabs);
+  const { tabs } = attributes;
 
-  const updateTab = (updatedTab, position) => {
-    let updatedStateTabs = localTabs;
-    updatedStateTabs[position] = updatedTab;
-
-    setLocalTabs(updatedStateTabs);
-  }
-
-  const addTab = () => {
-    let newTab = {
-      title: "New Tab",
-      content: null
-    }
-
-    console.log([...localTabs, newTab])
-
-    setLocalTabs([...localTabs, newTab]);
-  }
-
-  useEffect(() => {
-    setAttributes({
-      tabs: localTabs
-    })
-  }, [localTabs])
+  const [ newListItem, setNewListItem ] = useState("");
 
   return (
     <div {...blockProps}>
-      <div className="w-full tab-block border-2 border-sky-500">
-        <ul className="p-0 flex flex-row tabs">
-          {localTabs.map((tab, position) => {
-            let [localTab, setLocalTab] = useState(tab);
+      <ul className='flex flex-row pl-0'>
+        {tabs ? tabs.map((tab) => {
+          return (
+            <li className='list-none px-4 bg-slate-400 mr-2'>{tab}</li>
+          )
+        }) : null}
+      </ul>
+      <input type="text" value={newListItem} onChange={(e) => {
+        setNewListItem(e.target.value)
+      }} />
+      <button onClick={() => {
+        let newTabs = tabs ? tabs.concat(newListItem) : [ newListItem ];
+        setNewListItem("");
 
-            return (
-              <li className="list-none px-6 py-2 rounded-t-md bg-slate-200 w-fit tab" key={"unique-key"}>
-                <TextControl
-                  value={localTab.title}
-                  onChange={(value) => {
-                    setLocalTab({
-                      title: value,
-                      content: localTab.content
-                    })
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && localTab.title !== '') {
-                      updateTab(localTab, position);
-                    }
-                  }}
-                  placeholder="New Tab"
-                  className="[&>input]:border-none [&>input]:bg-transparent"
-                />
-              </li>
-            );
-          })}
-
-          <li className="list-none rounded-t-md bg-slate-200 w-fit ml-1" key={"key-2"}>
-            <button
-              onClick={() => {
-                addTab()
-              }}
-              className="w-full h-full px-6 py-1 bg-transparent border-none rounded-t-md"
-            >
-              +
-            </button>
-          </li>
-        </ul>
-        <InnerBlocks className="w-full content" />
-      </div>
+        setAttributes({
+          tabs: newTabs
+        })
+      }}>Add Element</button>
     </div>
-
   );
 }
