@@ -8,9 +8,10 @@ module.exports = {
         './**/*.php',
         './resources/css/*.css',
         './resources/js/*.js',
-        './flexible-content/*.php',
-        './flexible-content/build/**/*.js',
-        './safelist.txt'
+        './flexible-content/*.{php,js}',
+        './flexible-content/build/**/*.{php,js}',
+        './safelist.txt',
+        './node_modules/tw-elements/dist/js/**/*.js'
     ],
     theme: {
         container: {
@@ -35,5 +36,6 @@ module.exports = {
     },
     plugins: [
         tailpress.tailwind,
+        require('tw-elements/dist/plugin')
     ]
 };

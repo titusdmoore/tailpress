@@ -42,28 +42,41 @@ export default function Edit({ attributes, setAttributes }) {
 
   const { tabs } = attributes;
 
-  const [ newListItem, setNewListItem ] = useState("");
+  const [newListItem, setNewListItem] = useState("");
+  const [newTabActive, setNewTabActive] = useState(false);
 
   return (
     <div {...blockProps}>
       <ul className='flex flex-row pl-0'>
-        {tabs ? tabs.map((tab) => {
+        {tabs ? tabs.map((tab, index) => {
           return (
-            <li className='list-none px-4 bg-slate-400 mr-2'>{tab}</li>
+            <li className='list-none px-12 py-2 bg-slate-400 mr-0.5 rounded-t-md' key={`${tab.title}-${index}`}>
+              {tab.title}
+            </li>
           )
         }) : null}
-      </ul>
-      <input type="text" value={newListItem} onChange={(e) => {
-        setNewListItem(e.target.value)
-      }} />
-      <button onClick={() => {
-        let newTabs = tabs ? tabs.concat(newListItem) : [ newListItem ];
-        setNewListItem("");
+        {newTabActive ? (
+          <li className='list-none px-12 py-2 bg-slate-400 mr-0.5 rounded-t-md'>
+            <input type="text" value={newListItem} placeholder="New Tab" className="bg-transparent" onChange={(e) => {
+              setNewListItem(e.target.value)
+            }} />
+            <button onClick={() => {
+              let newTabs = tabs ? tabs.concat({ title: newListItem, content: null }) : [ { title: newListItem, content: null } ];
+              setNewListItem("");
+              setNewTabActive(false);
 
-        setAttributes({
-          tabs: newTabs
-        })
-      }}>Add Element</button>
+              setAttributes({
+                tabs: newTabs
+              })
+            }}>Add Tab</button>
+          </li>
+        ) : null}
+        <li className='list-none bg-slate-400 mr-0.5 rounded-t-md' key="add-tab">
+          <button className='w-full h-full border-none bg-transparent px-6 py-2 rounded-t-md' onClick={() => {
+            setNewTabActive(true)
+          }}>+</button>
+        </li>
+      </ul>
     </div>
   );
 }

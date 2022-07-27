@@ -28,7 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
+ * It provides all the necessary props like the className name.
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
@@ -53,12 +53,67 @@ function Edit(_ref) {
     setAttributes
   } = _ref;
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-    value: attributes.message,
-    onChange: val => setAttributes({
-      message: val
-    })
-  }));
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion",
+    id: "accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingOne"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseOne",
+    "aria-expanded": "true",
+    "aria-controls": "collapseOne"
+  }, "Accordion Item #1")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseOne",
+    className: "accordion-collapse collapse show",
+    "aria-labelledby": "headingOne",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the first item's accordion body."), " It is shown by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingTwo"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button collapsed relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseTwo",
+    "aria-expanded": "false",
+    "aria-controls": "collapseTwo"
+  }, "Accordion Item #2")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseTwo",
+    className: "accordion-collapse collapse",
+    "aria-labelledby": "headingTwo",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the second item's accordion body."), " It is hidden by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingThree"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button collapsed relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseThree",
+    "aria-expanded": "false",
+    "aria-controls": "collapseThree"
+  }, "Accordion Item #3")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseThree",
+    className: "accordion-collapse collapse",
+    "aria-labelledby": "headingThree",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the third item's accordion body."), " It is hidden by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow.")))));
 }
 
 /***/ }),
@@ -103,7 +158,67 @@ function save(_ref) {
     attributes
   } = _ref;
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save();
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, attributes.message);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion",
+    id: "accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingOne"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseOne",
+    "aria-expanded": "true",
+    "aria-controls": "collapseOne"
+  }, "Accordion Item #1")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseOne",
+    className: "accordion-collapse collapse show",
+    "aria-labelledby": "headingOne",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the first item's accordion body."), " It is shown by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingTwo"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button collapsed relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseTwo",
+    "aria-expanded": "false",
+    "aria-controls": "collapseTwo"
+  }, "Accordion Item #2")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseTwo",
+    className: "accordion-collapse collapse",
+    "aria-labelledby": "headingTwo",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the second item's accordion body."), " It is hidden by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-item bg-white border border-gray-200"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "accordion-header mb-0",
+    id: "headingThree"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: " accordion-button collapsed relative flex items-center w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none transition focus:outline-none ",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#collapseThree",
+    "aria-expanded": "false",
+    "aria-controls": "collapseThree"
+  }, "Accordion Item #3")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "collapseThree",
+    className: "accordion-collapse collapse",
+    "aria-labelledby": "headingThree",
+    "data-bs-parent": "#accordionExample"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "accordion-body py-4 px-5"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "This is the third item's accordion body."), " It is hidden by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("code", null, ".accordion-body"), ", though the transition does limit overflow.")))));
 }
 
 /***/ }),
