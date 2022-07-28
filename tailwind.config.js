@@ -36,6 +36,11 @@ module.exports = {
     },
     plugins: [
         tailpress.tailwind,
-        require('tw-elements/dist/plugin')
+        require('tw-elements/dist/plugin'),
+        function ({ addVariant }) {
+            addVariant('child', '& > *');
+            addVariant('child-hover', '& > *:hover');
+            addVariant('hover-child', 'hover: & > *');
+        }
     ]
 };

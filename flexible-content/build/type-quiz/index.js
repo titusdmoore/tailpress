@@ -2,9 +2,9 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./flexible-content/src/type-tabs/edit.js":
+/***/ "./flexible-content/src/type-quiz/edit.js":
 /*!************************************************!*\
-  !*** ./flexible-content/src/type-tabs/edit.js ***!
+  !*** ./flexible-content/src/type-quiz/edit.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -29,7 +29,6 @@ __webpack_require__.r(__webpack_exports__);
  */
  // import { __experimentalInputControl as InputControl } from '@wordpress/components';
 
-
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the className name.
@@ -46,6 +45,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
+ * Function to control page wide logic
+ * 
+ */
+
+(function () {
+  let locked = false;
+  console.log("ran"); // TODO import all used here into module before this function
+
+  wp.data.subscribe(() => {
+    const results = wp.data.select("core/block-editor").getBlocks().filter(block => {
+      return block.name === "edgepress/quiz" && block.attributes.correctAnswer == undefined;
+    });
+
+    if (results.length && locked == false) {
+      locked = true;
+      wp.data.dispatch("core/editor").lockPostSaving("noanswer");
+    }
+
+    if (!results.length && locked) {
+      locked = false;
+      wp.data.dispatch("core/editor").unlockPostSaving("noanswer");
+    }
+  });
+})();
+/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -58,71 +82,88 @@ __webpack_require__.r(__webpack_exports__);
  * @return {WPElement} Element to render.
  */
 
+
 function Edit(_ref) {
   let {
     attributes,
-    setAttributes,
-    clientId
+    setAttributes
   } = _ref;
-  console.log(clientId);
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-    className: 'border border-sky-500'
+    className: 'border border-solid border-slate-600 p-4 bg-slate-200 rounded'
   });
   const {
-    tabs
+    question,
+    answers,
+    correctAnswer
   } = attributes;
-  const [newListItem, setNewListItem] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const [newTabActive, setNewTabActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
-    className: "flex flex-row pl-0"
-  }, tabs ? tabs.map((tab, index) => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-      className: "list-none px-12 py-2 bg-slate-400 mr-0.5 rounded-t-md",
-      key: `${tab.title}-${index}`
-    }, tab.title);
-  }) : null, newTabActive ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-    className: "list-none px-12 py-2 bg-slate-400 mr-0.5 rounded-t-md"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    type: "text",
-    value: newListItem,
-    placeholder: "New Tab",
-    className: "bg-transparent",
-    onChange: e => {
-      setNewListItem(e.target.value);
-    }
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    onClick: () => {
-      let newTabs = tabs ? tabs.concat({
-        title: newListItem,
-        content: null
-      }) : [{
-        title: newListItem,
-        content: null
-      }];
-      setNewListItem("");
-      setNewTabActive(false);
+
+  const deleteAnswer = indexToDelete => {
+    const newAnswers = answers.filter((value, index) => {
+      return index !== indexToDelete;
+    });
+
+    if (indexToDelete == correctAnswer) {
       setAttributes({
-        tabs: newTabs
+        correctAnswer: undefined
       });
     }
-  }, "Add Tab")) : null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-    className: "list-none bg-slate-400 mr-0.5 rounded-t-md",
-    key: "add-tab"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "w-full h-full border-none bg-transparent px-6 py-2 rounded-t-md",
+
+    setAttributes({
+      answers: newAnswers
+    });
+  };
+
+  const markCorrect = indexToMark => {
+    setAttributes({
+      correctAnswer: indexToMark
+    });
+  };
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    placeholder: "Type your question here...",
+    value: question,
+    onChange: value => {
+      setAttributes({
+        question: value
+      });
+    },
+    label: "Question"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Answers:"), answers.map((answer, index) => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexBlock, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+      value: answer,
+      onChange: value => {
+        let newArr = answers.concat([]);
+        newArr[index] = value;
+        setAttributes({
+          answers: newArr
+        });
+      },
+      placeholder: `Answer ${index + 1}`,
+      autoFocus: answer === undefined
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, {
+      className: "mb-2"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      className: "child:hover:text-amber-600",
+      onClick: () => markCorrect(index)
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+      className: "text-amber-400",
+      icon: correctAnswer == index ? "star-filled" : "star-empty"
+    }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, {
+      className: "mb-2"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      isLink: true,
+      className: "text-red-500 hover:text-red-700",
+      onClick: () => deleteAnswer(index)
+    }, "Delete")));
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    isPrimary: true,
+    className: "mt-6",
     onClick: () => {
-      setNewTabActive(true);
+      setAttributes({
+        answers: answers.concat([undefined])
+      });
     }
-  }, "+"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "content-section"
-  }, tabs ? tabs.map((tab, index) => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      key: `content-${tab.title}-index`,
-      id: `content-${tab.title}-index`,
-      className: activeTab === index ? "" : "hidden"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, null));
-  }) : null));
+  }, "Add Another Answer"));
 }
 
 /***/ }),
@@ -177,13 +218,13 @@ module.exports = window["wp"]["element"];
 
 /***/ }),
 
-/***/ "./flexible-content/src/type-tabs/block.json":
+/***/ "./flexible-content/src/type-quiz/block.json":
 /*!***************************************************!*\
-  !*** ./flexible-content/src/type-tabs/block.json ***!
+  !*** ./flexible-content/src/type-quiz/block.json ***!
   \***************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/tabs","version":"0.1.0","title":"Tabs","category":"text","icon":"category","description":"A Gutenberg block that allows you to format content inside of tab groups. It also allows you to setup where the tabs are displayed.","attributes":{"tabs":{"type":"array"}},"supports":{"html":true},"textdomain":"edgepress","script":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/quiz","version":"0.1.0","title":"Quiz","category":"text","icon":"category","description":"A Gutenberg block that allows you to show a small quiz to the user.","attributes":{"question":{"type":"string"},"answers":{"type":"array","default":[""]},"correctAnswer":{"type":"integer","default":"undefined"}},"supports":{"html":true},"textdomain":"edgepress","script":"file:./index.js"}');
 
 /***/ })
 
@@ -259,13 +300,13 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 /*!*************************************************!*\
-  !*** ./flexible-content/src/type-tabs/index.js ***!
+  !*** ./flexible-content/src/type-quiz/index.js ***!
   \*************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./flexible-content/src/type-tabs/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./flexible-content/src/type-tabs/block.json");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./flexible-content/src/type-quiz/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./flexible-content/src/type-quiz/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -285,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
   * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
   */
   (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
-    /**
+    /** 
      * Used to construct a preview for the block to be shown in the block inserter.
      */
     example: {
@@ -299,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
     edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
 
     /**
-     * @see ./save.js
+     * Return null to use PHP file
      */
     save: () => {
       return null;
