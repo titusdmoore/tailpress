@@ -3509,6 +3509,10 @@ textarea.form-control.is-invalid {
   border-width: 1px
 }
 
+.border-2 {
+  border-width: 2px
+}
+
 .border-x-0 {
   border-left-width: 0px;
   border-right-width: 0px
@@ -3551,6 +3555,11 @@ textarea.form-control.is-invalid {
 .border-slate-600 {
   --tw-border-opacity: 1;
   border-color: rgb(71 85 105 / var(--tw-border-opacity))
+}
+
+.border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity))
 }
 
 .bg-primary {

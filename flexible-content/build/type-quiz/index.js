@@ -211,7 +211,7 @@ module.exports = window["wp"]["element"];
   \***************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/quiz","version":"0.1.0","title":"Quiz","category":"text","icon":"category","description":"A Gutenberg block that allows you to show a small quiz to the user.","attributes":{"question":{"type":"string"},"answers":{"type":"array","default":[""]},"correctAnswer":{"type":"integer","default":null}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js","viewScript":"file:quiz.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/quiz","version":"0.1.0","title":"Quiz","category":"text","icon":"category","description":"A Gutenberg block that allows you to show a small quiz to the user.","attributes":{"question":{"type":"string"},"answers":{"type":"array","default":[""]},"correctAnswer":{"type":"integer","default":null}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js","viewScript":"file:./quiz.js"}');
 
 /***/ })
 

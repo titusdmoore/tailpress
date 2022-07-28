@@ -27,5 +27,5 @@
   },
   "textdomain": "edgepress",
   "editorScript": "file:./index.js",
-  "viewScript": "file:quiz.js"
+  "viewScript": "file:./quiz.js"
 }
