@@ -11,6 +11,7 @@ The purpose of this file is to describe how to setup the development enviorment 
 		- [Linux](https://docs.docker.com/desktop/install/linux-install/ "Linux")
 		- [Mac](https://docs.docker.com/desktop/install/mac-install/ "Mac")
 - Run the following commands to begin the development process
+	- `npm install`
 	- `npm run env-start`
 		- This command begins the Docker Compose instance for WordPress. This command may take awhile but after it finishes there will be a WordPress and MySQL instance for both development and testing.
 	- `npm run watch-sync`
@@ -30,3 +31,13 @@ The purpose of this file is to describe how to setup the development enviorment 
 - `theme.json`
 	- This file is required by WordPress for block themes.
 	- This file also includes some global style information needed by the theme.
+
+## Known Issues and In-Progress Features
+- `npm run watch-sync` first run after initial git pull has a warning on page load.
+	- **Reason:** this is because `watch:blocks` is still running when browser-sync finishes. This means there is no build folder inside of flexible content.
+- Scaffold command to generate new flexible content blocks
+	- Runs like `create-react-app`
+	- Two options out of the gate `--with-react` and `--static`
+- Logic to prevent update button fails if you set new item to correct answer then delete in quiz block.
+- Add PHPUnit and XDebug to project and add them inside of package.json as scripts.
+- Move theme to be more inline with WordPress' block theme standards
