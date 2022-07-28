@@ -17,12 +17,13 @@
         },
         "correctAnswer": {
             "type": "integer",
-            "default": "undefined"
+            "default": null
         }
     },
     "supports": {
         "html": true
     },
     "textdomain": "edgepress",
-    "script": "file:./index.js"
+    "editorScript": "file:./index.js",
+    "viewScript": "file:quiz.js"
 }

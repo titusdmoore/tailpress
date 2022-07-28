@@ -45,31 +45,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Function to control page wide logic
- * 
- */
-
-(function () {
-  let locked = false;
-  console.log("ran"); // TODO import all used here into module before this function
-
-  wp.data.subscribe(() => {
-    const results = wp.data.select("core/block-editor").getBlocks().filter(block => {
-      return block.name === "edgepress/quiz" && block.attributes.correctAnswer == undefined;
-    });
-
-    if (results.length && locked == false) {
-      locked = true;
-      wp.data.dispatch("core/editor").lockPostSaving("noanswer");
-    }
-
-    if (!results.length && locked) {
-      locked = false;
-      wp.data.dispatch("core/editor").unlockPostSaving("noanswer");
-    }
-  });
-})();
-/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -82,14 +57,14 @@ __webpack_require__.r(__webpack_exports__);
  * @return {WPElement} Element to render.
  */
 
-
 function Edit(_ref) {
   let {
     attributes,
-    setAttributes
+    setAttributes,
+    clientId
   } = _ref;
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-    className: 'border border-solid border-slate-600 p-4 bg-slate-200 rounded'
+    className: 'border border-solid border-slate-600 p-4 bg-slate-200 rounded mb-6'
   });
   const {
     question,
@@ -129,8 +104,10 @@ function Edit(_ref) {
     },
     label: "Question"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Answers:"), answers.map((answer, index) => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexBlock, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-      value: answer,
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+      key: `${clientId}-answer-${index}`
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexBlock, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+      value: answer == undefined ? "" : answer,
       onChange: value => {
         let newArr = answers.concat([]);
         newArr[index] = value;
@@ -208,6 +185,16 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
 /***/ "@wordpress/element":
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
@@ -224,7 +211,7 @@ module.exports = window["wp"]["element"];
   \***************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/quiz","version":"0.1.0","title":"Quiz","category":"text","icon":"category","description":"A Gutenberg block that allows you to show a small quiz to the user.","attributes":{"question":{"type":"string"},"answers":{"type":"array","default":[""]},"correctAnswer":{"type":"integer","default":"undefined"}},"supports":{"html":true},"textdomain":"edgepress","script":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"edgepress/quiz","version":"0.1.0","title":"Quiz","category":"text","icon":"category","description":"A Gutenberg block that allows you to show a small quiz to the user.","attributes":{"question":{"type":"string"},"answers":{"type":"array","default":[""]},"correctAnswer":{"type":"integer","default":null}},"supports":{"html":true},"textdomain":"edgepress","editorScript":"file:./index.js","viewScript":"file:quiz.js"}');
 
 /***/ })
 
@@ -305,13 +292,16 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./flexible-content/src/type-quiz/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./flexible-content/src/type-quiz/block.json");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./flexible-content/src/type-quiz/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./flexible-content/src/type-quiz/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
+
 
 /**
  * Internal dependencies
@@ -319,25 +309,50 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+* Function to control page wide logic
+* 
+*/
+
+(function () {
+  let locked = false; // TODO import all used here into module before this function
+
+  (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.subscribe)(() => {
+    const results = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.select)("core/block-editor").getBlocks().filter(block => {
+      return block.name === "edgepress/quiz" && block.attributes.correctAnswer === null;
+    });
+
+    if (results.length && locked == false) {
+      locked = true;
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.dispatch)("core/editor").lockPostSaving("noanswer");
+    }
+
+    if (!results.length && locked) {
+      locked = false;
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.dispatch)("core/editor").unlockPostSaving("noanswer");
+    }
+  });
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   /**
   * Every block starts by registering a new block type definition.
   *
   * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
   */
-  (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
+  (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
     /** 
      * Used to construct a preview for the block to be shown in the block inserter.
      */
     example: {
       attributes: {}
     },
-    title: _block_json__WEBPACK_IMPORTED_MODULE_2__.title,
+    title: _block_json__WEBPACK_IMPORTED_MODULE_3__.title,
 
     /**
      * @see ./edit.js
      */
-    edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
+    edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
 
     /**
      * Return null to use PHP file

@@ -21,34 +21,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { useEffect } from 'react';
 
-
-/**
- * Function to control page wide logic
- * 
- */
-(function() {
-    let locked = false;
-    console.log("ran")
-
-    // TODO import all used here into module before this function
-
-    wp.data.subscribe(() => {
-        const results = wp.data.select("core/block-editor").getBlocks().filter((block) => {
-            return block.name === "edgepress/quiz" && block.attributes.correctAnswer == undefined;
-        })
-
-        if (results.length && locked == false) {
-            locked = true
-            wp.data.dispatch("core/editor").lockPostSaving("noanswer")
-        }
-
-        if (!results.length && locked) {
-            locked = false
-            wp.data.dispatch("core/editor").unlockPostSaving("noanswer")
-        }
-    })
-})();
-
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -61,9 +33,9 @@ import { useEffect } from 'react';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes, clientId }) {
     const blockProps = useBlockProps({
-        className: 'border border-solid border-slate-600 p-4 bg-slate-200 rounded'
+        className: 'border border-solid border-slate-600 p-4 bg-slate-200 rounded mb-6'
     });
 
     const { question, answers, correctAnswer } = attributes;
@@ -100,9 +72,9 @@ export default function Edit({ attributes, setAttributes }) {
             {
                 answers.map((answer, index) => {
                     return (
-                        <Flex>
+                        <Flex key={`${clientId}-answer-${index}`}>
                             <FlexBlock>
-                                <TextControl value={answer} onChange={(value) => {
+                                <TextControl value={answer == undefined ? "" : answer} onChange={(value) => {
                                     let newArr = answers.concat([]);
                                     newArr[index] = value;
 
