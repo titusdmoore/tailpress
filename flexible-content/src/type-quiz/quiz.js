@@ -10,10 +10,16 @@ preRenderedQuizBlocks.forEach((element) => {
 })
 
 function Quiz({ question, answers, correctAnswer }) {
-  console.log(answers)
   return (
     <div className="px-6 py-2 border border-slate-300 rounded">
-      Hello from React
+      <h2>{question}</h2>
+      <ul>
+        {answers.map((answer) => {
+          return (
+            <li className=''>{answer}</li>
+          )
+        })}
+      </ul>
     </div>
   );
 }
