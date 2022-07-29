@@ -1,0 +1,6 @@
+{
+    "extends": [ "plugin:@wordpress/eslint-plugin/recommended" ],
+    "rules": {
+        "jsx-a11y/no-autofocus": 0
+    }
+}

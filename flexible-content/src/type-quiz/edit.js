@@ -25,8 +25,8 @@ import { useBlockProps } from '@wordpress/block-editor';
  * Import hooks from element
  *
  */
-import { useState } from '@wordpress/element';
-import { useEffect } from 'react';
+// import { useState } from '@wordpress/element';
+// import { useEffect } from 'react';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -36,7 +36,7 @@ import { useEffect } from 'react';
  *
  * @param {Object}   props               Properties passed to the function.
  * @param {Object}   props.attributes    Available block attributes.
- * @param            props.clientId
+ * @param {string}   props.clientId
  * @param {Function} props.setAttributes Function that updates individual attributes.
  *
  * @return {WPElement} Element to render.
@@ -54,7 +54,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			return index !== indexToDelete;
 		} );
 
-		if ( indexToDelete == correctAnswer ) {
+		if ( indexToDelete === correctAnswer ) {
 			setAttributes( { correctAnswer: undefined } );
 		}
 
@@ -83,7 +83,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					<Flex key={ `${ clientId }-answer-${ index }` }>
 						<FlexBlock>
 							<TextControl
-								value={ answer == undefined ? '' : answer }
+								value={ answer === undefined ? '' : answer }
 								onChange={ ( value ) => {
 									const newArr = answers.concat( [] );
 									newArr[ index ] = value;
@@ -104,7 +104,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								<Icon
 									className="text-amber-400"
 									icon={
-										correctAnswer == index
+										correctAnswer === index
 											? 'star-filled'
 											: 'star-empty'
 									}
