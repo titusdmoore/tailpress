@@ -34,9 +34,9 @@
 		"cypress:open": "cross-env NODE_ENV=development cypress open",
 		"cypress:headless": "cross-env NODE_ENV=development cypress run --headless",
 		"lint:js": "wp-scripts lint-js 'flexible-content/src/**/*.js'",
-    "lint:php": "phplint **/*.php *.php '!node_modules/**'",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:pkg-json": "wp-scripts lint-pkg-json"
+		"lint:php": "phplint **/*.php *.php '!node_modules/**'",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
 	},
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
@@ -47,6 +47,7 @@
 		"concurrently": "^6.2.1",
 		"cross-env": "^6.0.3",
 		"cypress": "^10.3.1",
+		"ep-create-block": "^1.0.0",
 		"esbuild": "^0.12.24",
 		"phplint": "^2.0.5",
 		"postcss": "^8.4.4",
