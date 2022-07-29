@@ -3,7 +3,7 @@ import { render, useState } from '@wordpress/element';
 const preRenderedQuizBlocks = document.querySelectorAll(
 	'.edgepress-quiz-block'
 );
- 
+
 preRenderedQuizBlocks.forEach( ( element ) => {
 	const data = JSON.parse( element.querySelector( 'pre' ).innerHTML );
 	render( <Quiz { ...data } />, element );
@@ -15,13 +15,14 @@ function Quiz( { question, answers, correctAnswer } ) {
 	return (
 		<div className="p-6 border border-slate-600 rounded bg-slate-200 mb-4">
 			<p className="text-4xl">{ question }</p>
+			{ correctAnswer === userAnswer ? <p>You are correct!</p> : '' }
 			<ul className="flex flex-row list-none justify-between">
 				{ answers.map( ( answer, index ) => {
 					let bgClasses = '';
 
 					if ( userAnswer !== null ) {
 						bgClasses =
-							userAnswer === correctAnswer && userAnswer === index
+							correctAnswer === index
 								? 'bg-green-400'
 								: 'bg-red-600';
 					} else {

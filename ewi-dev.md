@@ -18,6 +18,11 @@ The purpose of this file is to describe how to setup the development enviorment 
 		- This command begins the watch process for all sections of the code base. After a build finishes it starts `browser-sync` starts and you can visit the development site at `localhost:3000`.
 			- Note: currently the Tailpress theme is not actived by default. If you run into this issue go into the WP-Admin area under `Apperance`->`Themes` and activate Tailpress.
 
+## Linting and Testing
+- Run `npx wp-scripts lint-js` and `npx wp-scripts lint-js --fix` to lint javascript. All issues must be fixed before commiting to the main branches.
+- Run `npm run cypress:open` to run cypress tests within the GUI and run `npm run cypress:headless` to run it in the terminal
+	- Please add additional tests as features are added.
+
 ## Configuration Files
 - `.wp-env.json`
 	- This file controls the configuration that is used by `wp-env` run in the `npm run env-start` command.
