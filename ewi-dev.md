@@ -10,6 +10,13 @@ The purpose of this file is to describe how to setup the development enviorment 
 		- [Windows](https://docs.docker.com/desktop/install/windows-install/ "Windows")
 		- [Linux](https://docs.docker.com/desktop/install/linux-install/ "Linux")
 		- [Mac](https://docs.docker.com/desktop/install/mac-install/ "Mac")
+- Composer
+  - Composer is a php package manager. Composer must be installed on the system globally before you can lint php.
+  - Installing Composer
+    - Windows
+      - [Download install from Composer](https://getcomposer.org/doc/00-intro.md#installation-windows)
+    - Install Composer with brew for Mac
+      - `brew install composer`
 - Run the following commands to begin the development process
 	- `npm install`
 	- `npm run env-start`
