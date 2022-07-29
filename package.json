@@ -32,7 +32,11 @@
 		"env-start": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env start",
 		"env-stop": "cross-env NODE_ENV=development ./node_modules/@wordpress/env/bin/wp-env stop",
 		"cypress:open": "cross-env NODE_ENV=development cypress open",
-		"cypress:headless": "cross-env NODE_ENV=development cypress run --headless"
+		"cypress:headless": "cross-env NODE_ENV=development cypress run --headless",
+		"lint:js": "wp-scripts lint-js 'flexible-content/src/**/*.js'",
+    "lint:php": "phplint **/*.php *.php '!node_modules/**'",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json"
 	},
 	"devDependencies": {
 		"@jeffreyvr/tailwindcss-tailpress": "^2.0.0",
@@ -44,6 +48,7 @@
 		"cross-env": "^6.0.3",
 		"cypress": "^10.3.1",
 		"esbuild": "^0.12.24",
+		"phplint": "^2.0.5",
 		"postcss": "^8.4.4",
 		"postcss-import": "^14.0.0",
 		"postcss-nested": "^5.0.3",
