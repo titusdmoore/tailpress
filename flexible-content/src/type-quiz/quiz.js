@@ -3,7 +3,7 @@ import { render, useState } from '@wordpress/element';
 const preRenderedQuizBlocks = document.querySelectorAll(
 	'.edgepress-quiz-block'
 );
-
+ 
 preRenderedQuizBlocks.forEach( ( element ) => {
 	const data = JSON.parse( element.querySelector( 'pre' ).innerHTML );
 	render( <Quiz { ...data } />, element );
